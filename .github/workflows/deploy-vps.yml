@@ -1,0 +1,48 @@
+name: Deploy Cala Studio to VPS
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cala-studio-vps
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure SSH
+        env:
+          DEPLOY_KEY: ${{ secrets.CALA_DEPLOY_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.CALA_VPS_KNOWN_HOSTS }}
+        run: |
+          set -euo pipefail
+          test -n "$DEPLOY_KEY"
+          test -n "$KNOWN_HOSTS"
+          install -d -m 700 "$HOME/.ssh"
+          printf '%s\n' "$DEPLOY_KEY" > "$HOME/.ssh/id_ed25519"
+          chmod 600 "$HOME/.ssh/id_ed25519"
+          printf '%s\n' "$KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          chmod 600 "$HOME/.ssh/known_hosts"
+
+      - name: Package static files
+        run: |
+          tar -czf "$RUNNER_TEMP/cala-site.tar.gz" index.html styles.css script.js assets katahari
+
+      - name: Upload and activate
+        env:
+          RELEASE: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          host="cala-deploy@160.19.166.85"
+          remote="/srv/cala-studio/releases/$RELEASE"
+          ssh -i "$HOME/.ssh/id_ed25519" -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "$host" "mkdir -p '$remote'"
+          scp -i "$HOME/.ssh/id_ed25519" -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "$RUNNER_TEMP/cala-site.tar.gz" "$host:$remote/site.tar.gz"
+          ssh -i "$HOME/.ssh/id_ed25519" -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "$host" "tar -xzf '$remote/site.tar.gz' -C '$remote' && rm '$remote/site.tar.gz' && test -f '$remote/index.html' && ln -sfn '$remote' /srv/cala-studio/current.next && mv -Tf /srv/cala-studio/current.next /srv/cala-studio/current"
