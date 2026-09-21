@@ -1,6 +1,6 @@
 # CALA Studio visual direction
 
-Reading this as: a publisher landing page and policy hub for mobile-first app users, in a warm hand-lettered studio style, dial ENERGY 2 / RHYTHM 2 / MOTION 1.
+Reading this as: a software house landing page and product policy hub for founders, teams, and mobile-first app users, in a warm hand-lettered studio style, dial ENERGY 2 / RHYTHM 2 / MOTION 1.
 
 ## Direction from the supplied logo
 
@@ -10,6 +10,7 @@ Reading this as: a publisher landing page and policy hub for mobile-first app us
 - Ivory is the paper-like surface that lets the opaque logo crops sit naturally without a visible rectangular edge.
 - Rounded, chunky display type echoes the supplied wordmark. The system fallback keeps the site readable when the rounded face is not installed.
 - The hero uses the primary logo as the focal point. The application and document sections then reduce decoration so the content remains the reason to continue.
+- The service list leads the homepage because CALA Studio is positioned as a software house. Katahari remains a concrete product example, not the whole company story.
 - The offset shadow is used only on the hero logo frame and the Katahari card to lift the two key surfaces from the ivory paper plane.
 - The application card keeps a single asymmetric visual treatment because Katahari is the only listed application and needs a clear focal presentation.
 - Motion stays at level 1: hover and focus feedback only. The documents should feel dependable and calm, not animated.

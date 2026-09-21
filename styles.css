@@ -20,7 +20,7 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--cream);
-  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  font-family: "Segoe UI", system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -112,7 +112,7 @@ nav .nav-cta:hover, nav .nav-cta:focus-visible { color: var(--charcoal); backgro
 
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3 { font-family: "Arial Rounded MT Bold", "Trebuchet MS", "Segoe UI", sans-serif; letter-spacing: -0.04em; line-height: 1.12; }
-h1 { max-width: 690px; margin-bottom: 24px; font-size: clamp(2.7rem, 6vw, 5.4rem); font-weight: 800; }
+h1 { max-width: 620px; margin-bottom: 24px; font-size: clamp(2.55rem, 5.6vw, 4.9rem); font-weight: 800; }
 h1 span, h2 em { color: var(--yellow-deep); font-style: normal; }
 .hero h1 span { color: var(--yellow); }
 .hero-lead { max-width: 515px; margin-bottom: 32px; color: rgba(253, 247, 234, 0.78); font-size: 1.1rem; }
@@ -148,13 +148,21 @@ h1 span, h2 em { color: var(--yellow-deep); font-style: normal; }
 .hero-logo-frame img { display: block; width: 100%; height: auto; }
 .hero-art-note { max-width: 220px; margin: 32px 0 0 auto; color: rgba(253, 247, 234, 0.72); font-size: 0.82rem; font-weight: 700; line-height: 1.4; text-align: right; }
 
-.section { padding: 112px 0; }
+.section { padding: 104px 0; }
 .section-light { background: var(--paper); }
 .section-cream { background: var(--cream); }
+.section-services { background: var(--cream); border-top: 1px solid var(--line); }
 .section-heading { margin-bottom: 44px; }
 .split-heading { display: grid; grid-template-columns: 1fr 0.55fr; align-items: end; gap: 50px; }
 .section-heading h2, .about-grid h2 { max-width: 590px; margin-bottom: 0; font-size: clamp(2rem, 4vw, 3.6rem); }
 .split-heading > p { max-width: 340px; margin-bottom: 2px; color: var(--muted); font-size: 0.96rem; }
+
+.services-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; align-items: start; gap: 96px; }
+.service-intro p:last-child { max-width: 360px; margin: 26px 0 0; color: var(--muted); }
+.service-list { border-top: 2px solid var(--charcoal); }
+.service-item { display: grid; grid-template-columns: 0.78fr 1.22fr; gap: 28px; padding: 23px 0; border-bottom: 1px solid var(--line); }
+.service-item h3 { margin: 0; color: var(--charcoal); font-size: 1.1rem; }
+.service-item p { max-width: 390px; margin: 0; color: var(--muted); font-size: 0.92rem; }
 
 .app-card { display: grid; grid-template-columns: minmax(260px, 0.75fr) 1.25fr; overflow: hidden; background: var(--cream); border: 2px solid var(--charcoal); border-radius: var(--radius); box-shadow: var(--shadow); }
 .app-card-art { position: relative; min-height: 355px; overflow: hidden; background: var(--yellow); }
@@ -169,15 +177,17 @@ h1 span, h2 em { color: var(--yellow-deep); font-style: normal; }
 .app-card h3 { margin-bottom: 18px; font-size: clamp(2.2rem, 4vw, 3.5rem); }
 .status-pill { flex: none; padding: 6px 11px; color: var(--charcoal); background: var(--yellow); border-radius: 7px; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
 .app-card-content > p { max-width: 480px; margin-bottom: 23px; color: var(--muted); }
-.tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 34px; }
-.tag-list span { padding: 6px 10px; color: var(--charcoal-soft); border: 1px solid #d4cbbc; border-radius: 6px; font-size: 0.73rem; font-weight: 700; }
+.app-facts { display: grid; grid-template-columns: 0.7fr 1.3fr; margin-bottom: 32px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.app-facts span { padding: 13px 18px 13px 0; color: var(--muted); font-size: 0.78rem; line-height: 1.45; }
+.app-facts span + span { padding-right: 0; padding-left: 18px; border-left: 1px solid var(--line); }
+.app-facts strong { display: block; margin-bottom: 2px; color: var(--charcoal); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; }
 .app-links { display: flex; align-items: center; flex-wrap: wrap; gap: 13px; color: var(--yellow-deep); font-size: 0.8rem; font-weight: 800; }
 .app-links a { text-decoration: none; }
 .app-links a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .play-placeholder { color: var(--muted); font-weight: 600; }
-.link-separator { color: #c1c7ce; }
+.link-separator { color: #b8ae9f; }
 
-.about-grid { display: grid; grid-template-columns: 1fr 0.8fr; gap: 100px; }
+.about-grid { display: grid; grid-template-columns: 1fr 0.8fr; gap: 76px; }
 .about-copy { padding-top: 42px; }
 .about-copy p { margin-bottom: 18px; color: var(--muted); }
 .about-copy .button { margin-top: 16px; }
@@ -212,7 +222,7 @@ h1 span, h2 em { color: var(--yellow-deep); font-style: normal; }
 .document-aside { position: sticky; top: 25px; align-self: start; display: flex; flex-direction: column; gap: 10px; padding-top: 5px; }
 .document-aside a { color: var(--muted); font-size: 0.78rem; line-height: 1.45; text-decoration: none; }
 .document-aside a:hover { color: var(--yellow-deep); }
-.legal-copy { min-width: 0; color: #49566b; font-size: 0.98rem; }
+.legal-copy { min-width: 0; color: #4f4f4b; font-size: 0.98rem; }
 .legal-copy > p:first-child { color: var(--charcoal-soft); font-size: 1.08rem; }
 .legal-copy h2 { margin: 52px 0 17px; color: var(--charcoal); font-size: 1.55rem; }
 .legal-copy h2:first-of-type { margin-top: 50px; }
@@ -245,9 +255,13 @@ td:first-child { width: 32%; color: var(--charcoal); font-weight: 800; }
   .section { padding: 76px 0; }
   .split-heading, .about-grid { grid-template-columns: 1fr; gap: 25px; }
   .split-heading > p { margin-top: 0; }
+  .services-grid { grid-template-columns: 1fr; gap: 42px; }
+  .service-item { grid-template-columns: 1fr; gap: 6px; padding: 19px 0; }
   .app-card { grid-template-columns: 1fr; }
   .app-card-art { min-height: 280px; }
   .app-card-content { padding: 34px 26px 38px; }
+  .app-facts { grid-template-columns: 1fr; }
+  .app-facts span + span { padding-top: 11px; padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
   .app-card-title { display: block; }
   .status-pill { display: inline-block; margin-bottom: 14px; }
   .about-copy { padding-top: 0; }
