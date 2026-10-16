@@ -24,6 +24,18 @@ Lalu buka `http://localhost:8000/`.
 
 ## Deployment
 
+### VPS
+
+Workflow `.github/workflows/deploy-vps.yml` berjalan saat push ke `master` atau melalui **Run workflow**. File statis dikirim menggunakan akun `calaadmin` ke `/srv/apps/cala-studio`, direktori yang dilayani Caddy untuk `https://calastudio.tech`. Setelah upload, workflow membandingkan halaman publik dengan `index.html` commit yang sedang dideploy.
+
+Workflow menggunakan repository secrets `CALA_DEPLOY_SSH_KEY` (private key untuk masuk ke server sebagai `calaadmin`) dan `CALA_VPS_KNOWN_HOSTS` (host key server yang sudah diverifikasi). Public key Actions harus ada dalam `/home/calaadmin/.ssh/authorized_keys`. Key deploy server ke GitHub berbeda dari key ini.
+
+Direktori situs harus dapat ditulis oleh `calaadmin`. Arsip tiap deployment disiapkan di `/home/calaadmin/.cache/cala-studio/releases/`.
+
+Deploy menimpa file statis tanpa menghapus file lain atau checkout `.git`. File yang dihapus dari repository tidak otomatis dihapus dari server. Upload langsung ke direktori aktif tidak menjamin pergantian versi atomik.
+
+### GitHub Pages
+
 Workflow `.github/workflows/deploy-pages.yml` mengunggah seluruh isi repository ke GitHub Pages saat perubahan didorong ke branch `master` atau saat workflow dijalankan manual.
 
 Di repository GitHub, pastikan Pages menggunakan **GitHub Actions** sebagai source. Tidak ada secret, AdMob App ID, atau kredensial pembayaran di repository ini.

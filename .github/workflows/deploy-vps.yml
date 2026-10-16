@@ -36,13 +36,18 @@ jobs:
         run: |
           tar -czf "$RUNNER_TEMP/cala-site.tar.gz" index.html styles.css script.js assets katahari
 
-      - name: Upload and activate
+      - name: Upload and deploy
         env:
           RELEASE: ${{ github.sha }}
         run: |
           set -euo pipefail
-          host="cala-deploy@160.19.166.85"
-          remote="/srv/cala-studio/releases/$RELEASE"
+          host="calaadmin@160.19.166.85"
+          remote="/home/calaadmin/.cache/cala-studio/releases/$RELEASE"
           ssh -i "$HOME/.ssh/id_ed25519" -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "$host" "mkdir -p '$remote'"
           scp -i "$HOME/.ssh/id_ed25519" -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "$RUNNER_TEMP/cala-site.tar.gz" "$host:$remote/site.tar.gz"
-          ssh -i "$HOME/.ssh/id_ed25519" -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "$host" "tar -xzf '$remote/site.tar.gz' -C '$remote' && rm '$remote/site.tar.gz' && test -f '$remote/index.html' && ln -sfn '$remote' /srv/cala-studio/current.next && mv -Tf /srv/cala-studio/current.next /srv/cala-studio/current"
+          ssh -i "$HOME/.ssh/id_ed25519" -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "$host" "test -w /srv/apps/cala-studio && tar -xzf '$remote/site.tar.gz' -C '$remote' && test -f '$remote/index.html' && tar -xzf '$remote/site.tar.gz' --no-same-owner --no-same-permissions -C /srv/apps/cala-studio && rm '$remote/site.tar.gz'"
+
+      - name: Verify public website
+        run: |
+          curl --fail --silent --show-error --retry 3 --retry-delay 5 "https://calastudio.tech/?deploy=${GITHUB_SHA}" -o "$RUNNER_TEMP/deployed-index.html"
+          cmp index.html "$RUNNER_TEMP/deployed-index.html"
